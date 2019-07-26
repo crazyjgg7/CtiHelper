@@ -29,15 +29,15 @@ class ConnectSamba():
         flist = conn.listPath(service_name=self.dir, path=self.display_path, pattern='*')       
         for i in flist:
             print(i.filename)
-    def mkdir(self,dirname):#新建文件夹
+    def mkdir(self,dirname):#新建文件夹  dirname:需要创建的文件名
         conn = SMBConnection(self.username, self.password, self.my_name, self.remote_smb_IP, self.domain_name, use_ntlm_v2=True,is_direct_tcp = True) 
         conn.connect(self.remote_smb_IP,445) 
         conn.createDirectory(self.dir, self.display_path + '/' + dirname) 
-    def rename(self,old_file_name,new_file_name):#重命名文件
+    def rename(self,old_file_name,new_file_name):#重命名文件   old_file_name原文件名   new_file_name新文件名
         conn = SMBConnection(self.username, self.password, self.my_name, self.remote_smb_IP, self.domain_name, use_ntlm_v2=True,is_direct_tcp = True) 
         conn.connect(self.remote_smb_IP,445) 
         conn.rename(self.dir, self.display_path + '/' + old_file_name, self.display_path + '/' + new_file_name)
-    def downloadFile(self,download_filename):#下载文件 注：不能下载整个文件夹   只可以下载文件
+    def downloadFile(self,download_filename):#下载文件 注：不能下载整个文件夹只可以下载文件   download_filename:需要下载文件
         try:
             conn = SMBConnection(self.username, self.password, self.my_name, self.remote_smb_IP, self.domain_name, use_ntlm_v2=True,is_direct_tcp = True) 
             conn.connect(self.remote_smb_IP,445)
