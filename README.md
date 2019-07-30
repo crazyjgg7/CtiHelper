@@ -1,3 +1,3 @@
 # CtiHelper
  
----仅仅是测试smbconnection类的方法
+---用于操作服务器的数据库以及备份文件
