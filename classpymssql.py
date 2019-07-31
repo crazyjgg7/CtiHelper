@@ -60,15 +60,14 @@ class py_mssql:
         self.conn.close()
 
 def main():
-
-##
-
+    a="INSERT INTO  CDRDetail(Step,port,State,Reason,CallerDN,CalledDN,AgentID,BinTime,EndTime,HoldLong,RecFile, LogID)SELECT 1, 46,2,2,8999,'013456698278',8999,'2019-07-23 15:53:49.000','2019-07-23 15:57:31.000',66,'20190723\155349.045.wav',(select max(LogID) from CDRDetail)+1;"
     pms = py_mssql(host="localhost",user="sa",pwd="123.abc",db="dmsweb")
     resList = pms.ExecQuery("SELECT VIindentityNO,VRemark FROM sysc01 where VpersonName='林杰'")
     for (VIindentityNO,VRemark) in resList:
         print(VIindentityNO,VRemark)
 
 if __name__ == '__main__':
+    
     main()
  
  
