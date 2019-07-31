@@ -173,12 +173,6 @@ class ConnectSamba():    #远程操作SMB
             conn.deleteDirectory(self.dir, self.display_path + '/' + del_file_name)             
 
 def main():
-    sqlstr="INSERT INTO  CDRDetail(Step,port,State,Reason,CallerDN,CalledDN,AgentID,BinTime,EndTime,HoldLong,RecFile, LogID)SELECT 1,46,2,2,8999,'013456698278',8999,'2019-07-23 15:53:49.000','2019-07-23 15:57:31.000',66,'20190723\155349.045.wav',(select max(LogID) from CDRDetail)+1;"
-    pms = py_mssql(host="localhost",user="sa",pwd="123.abc",db="dmsweb")
-    # resList = pms.ExecQuery("SELECT VIindentityNO,VRemark FROM sysc01 where VpersonName='林杰'")
-    # for (VIindentityNO,VRemark) in resList:
-    #     print(VIindentityNO,VRemark)                    查询暂时不用
-if __name__ == '__main__':
     smb = ConnectSamba('ctiuser','abc123$$','','','172.16.0.23','VocLog','')
     cutstr=cut_str('')
     pms = py_mssql(host="localhost",user="sa",pwd="123.abc",db="dmsweb")
@@ -193,6 +187,13 @@ if __name__ == '__main__':
         str_stat,str_day,str_activenum,str_passtivenum=cutstr.getsomeword(files)#读取录音盒文件取到呼入呼出，日期，主叫号码，被叫号码
         sqlstr="INSERT INTO  CDRDetail(Step,port,State,Reason,CallerDN,CalledDN,AgentID,BinTime,EndTime,HoldLong,RecFile, LogID)SELECT 1,46,2,2,{str_activenum},{str_passtivenum},{str_activenum},{nowtime},{nowtime},66,{recordname},(select max(LogID) from CDRDetail)+1;".format(str_activenum=str_activenum,str_passtivenum=str_passtivenum,nowtime=nowtime,recordname=recordname)
         pms.ExecNonQuery(sqlstr)  #插入指定生成文件标识的插入到数据库
+    # sqlstr="INSERT INTO  CDRDetail(Step,port,State,Reason,CallerDN,CalledDN,AgentID,BinTime,EndTime,HoldLong,RecFile, LogID)SELECT 1,46,2,2,8999,'013456698278',8999,'2019-07-23 15:53:49.000','2019-07-23 15:57:31.000',66,'20190723\155349.045.wav',(select max(LogID) from CDRDetail)+1;"
+    # pms = py_mssql(host="localhost",user="sa",pwd="123.abc",db="dmsweb")
+    # resList = pms.ExecQuery("SELECT VIindentityNO,VRemark FROM sysc01 where VpersonName='林杰'")
+    # for (VIindentityNO,VRemark) in resList:
+    #     print(VIindentityNO,VRemark)                    查询暂时不用
+if __name__ == '__main__':
+    main()
 
 
 
